@@ -46,5 +46,26 @@ describe "olympians api" do
     expect(olympian_data["olympians"][0]["name"]).to eq(@olympian_1.name)
     expect(olympian_data["olympians"][2]["sport"]).to eq(@olympian_3.sport.name)
 	end
+  
+	it "filters by youngest age param" do
+    get '/api/v1/olympians?age=youngest'
+
+    expect(response).to be_successful
+    olympian_data = JSON.parse(response.body)
+
+    expect(olympian_data["olympian"]["name"]).to eq(@olympian_3.name)
+	 end
+
+  it "returns 400 for an invalid age param" do
+    get '/api/v1/olympians?age=chicken_dinner'
+
+    expect(response).to have_http_status(400)
+  end
+
+  it "returns 400 for a param that isn't permitted" do
+    get 'api/v1/olympians?chicken_dinner=might_be_a_winner'
+
+    expect(response).to have_http_status(400)
+  end
 end
 

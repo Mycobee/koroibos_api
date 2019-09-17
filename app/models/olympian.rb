@@ -7,4 +7,8 @@ class Olympian < ApplicationRecord
   def medal_count 
     olympian_events.where.not(medal: 'NA').count
   end
+  
+  def self.youngest
+    order(age: :asc).first
+  end
 end
