@@ -46,5 +46,14 @@ describe "olympians api" do
     expect(olympian_data["olympians"][0]["name"]).to eq(@olympian_1.name)
     expect(olympian_data["olympians"][2]["sport"]).to eq(@olympian_3.sport.name)
 	end
+  
+	it "filters by youngest age param" do
+    get '/api/v1/olympians?age=youngest'
+
+    expect(response).to be_successful
+    olympian_data = JSON.parse(response.body)
+
+    expect(olympian_data["olympian"]["name"]).to eq(@olympian_3.name)
+	end
 end
 
