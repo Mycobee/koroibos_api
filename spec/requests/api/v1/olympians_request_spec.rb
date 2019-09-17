@@ -54,6 +54,18 @@ describe "olympians api" do
     olympian_data = JSON.parse(response.body)
 
     expect(olympian_data["olympian"]["name"]).to eq(@olympian_3.name)
-	end
+	 end
+
+  it "returns 400 for an invalid age param" do
+    get '/api/v1/olympians?age=chicken_dinner'
+
+    expect(response).to have_http_status(400)
+  end
+
+  it "returns 400 for a param that isn't permitted" do
+    get 'api/v1/olympians?chicken_dinner=might_be_a_winner'
+
+    expect(response).to have_http_status(400)
+  end
 end
 
