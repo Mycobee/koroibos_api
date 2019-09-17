@@ -108,12 +108,5 @@ RSpec.describe Olympian, type: :model do
       expect(Olympian.return_by_age('youngest')).to eq(@olympian_3)
       expect(Olympian.return_by_age('oldest')).to eq(@olympian_1)
     end
-
-    xit '.age_filter' do
-      valid_youngest_age_params = { "age": "youngest"}   
-
-      actual = Olympian.age_filter(valid_youngest_age_params)
-      expect(actual).to eq(@olympian_3)
-    end
   end
 end
