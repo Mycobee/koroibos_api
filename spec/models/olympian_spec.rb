@@ -104,9 +104,8 @@ RSpec.describe Olympian, type: :model do
   end
 
   describe 'class methods' do
-    it '.return_by_age' do
-      expect(Olympian.return_by_age('youngest')).to eq(@olympian_3)
-      expect(Olympian.return_by_age('oldest')).to eq(@olympian_1)
+    it '.youngest' do
+      expect(Olympian.youngest).to eq(@olympian_3)
     end
   end
 end
