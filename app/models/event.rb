@@ -4,4 +4,8 @@ class Event < ApplicationRecord
   has_many :olympians, through: :olympian_events
   validates :name, presence: true
   validates :games, presence: true
+
+  def get_medalists
+    self.olympian_events.where.not(medal: "NA").includes(:olympian)
+  end
 end
