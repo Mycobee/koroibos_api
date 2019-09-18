@@ -107,5 +107,9 @@ RSpec.describe Olympian, type: :model do
     it '.youngest' do
       expect(Olympian.youngest).to eq(@olympian_3)
     end
+
+    it '.oldest' do
+      expect(Olympian.oldest).to eq(@olympian_1)
+    end
   end
 end
