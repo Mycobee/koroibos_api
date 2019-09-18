@@ -8,7 +8,7 @@ RSpec.describe Olympian, type: :model do
       sex: "M",
       age: 42,
       height: 190,
-      weight: 140,
+      weight: 150,
       team: 'USA'
     }
     sport = Sport.create!(name: 'competitive painting')
@@ -19,7 +19,7 @@ RSpec.describe Olympian, type: :model do
       sex: "M",
       age: 22,
       height: 160,
-      weight: 110,
+      weight: 50,
       team: 'USA'
     }
     sport_2 = Sport.create!(name: 'competitive dancing')
@@ -30,7 +30,7 @@ RSpec.describe Olympian, type: :model do
       sex: "F",
       age: 12,
       height: 120,
-      weight: 190,
+      weight: 100,
       team: 'Russia'
     }
     
@@ -114,6 +114,19 @@ RSpec.describe Olympian, type: :model do
 
     it '.total_competing_olympians' do
       expect(Olympian.total_competing_olympians).to eq(3)
+    end
+
+    it '.average_weight' do
+      expected_1 = (@olympian_1.weight + @olympian_2.weight) / 2
+      expect(Olympian.average_weight('M')).to eq(expected_1)
+
+      expected_2 = @olympian_3.weight
+      expect(Olympian.average_weight('F')).to eq(expected_2)
+    end
+
+    it '.average_age' do
+      expected = Olympian.pluck(:age).sum.to_f / Olympian.count
+      expect(Olympian.average_age).to eq(expected.round(1))
     end
   end
 end
