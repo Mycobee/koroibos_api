@@ -19,4 +19,12 @@ class Olympian < ApplicationRecord
   def self.total_competing_olympians
     count
   end
+
+  def self.average_weight(sex)
+    where(sex: sex).average(:weight).to_f.round(1)
+  end
+
+  def self.average_age
+    average(:age).to_f.round(1)
+  end
 end
