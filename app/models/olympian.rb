@@ -15,4 +15,8 @@ class Olympian < ApplicationRecord
   def self.oldest
     order(age: :desc).first
   end
+
+  def self.total_competing_olympians
+    count
+  end
 end
