@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Olympian, type: :model do
-  before :each do
-    ##olympian_data
+describe "olympian stats api" do
+	before :each do
+	  ##olympian_data
     olympian_1_attrs = {
       name: "Bob Ross",
       sex: "M",
@@ -36,6 +36,7 @@ RSpec.describe Olympian, type: :model do
     
     sport_3 = Sport.create!(name: 'competitive yodling')
     @olympian_3 = sport_3.olympians.create!(olympian_3_attrs)
+
     ##Event data
     event_1a_attrs = {
       name: "bird draw",
@@ -78,55 +79,20 @@ RSpec.describe Olympian, type: :model do
     olympian_event_1c = @olympian_1.olympian_events.new(olympian_event_1c_attrs)
     olympian_event_1c.event = event_1c
     olympian_event_1c.save
-  end
 
+	end
+	
+	it "returns a list of olympian statistics" do
+	  get '/api/v1/olympian_stats'	
 
-  describe 'relationships' do
-    it { should belong_to(:sport) }
-    it { should have_many(:olympian_events) }
-    it { should have_many(:events).through(:olympian_events) }
-  end
+    expect(response).to be_successful
 
-  describe 'validations' do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:sex) }
-    it { should validate_presence_of(:age) }
-    it { should validate_presence_of(:height) }
-    it { should validate_presence_of(:weight) }
-    it { should validate_presence_of(:team) }
-    it { should validate_presence_of(:total_medals_won) }
-  end
-
-  describe 'instance methods' do
-    it '#medal_count' do
-      expect(@olympian_1.medal_count).to eq(2)
-    end
-  end
-
-  describe 'class methods' do
-    it '.youngest' do
-      expect(Olympian.youngest).to eq(@olympian_3)
-    end
-
-    it '.oldest' do
-      expect(Olympian.oldest).to eq(@olympian_1)
-    end
-
-    it '.total_competing_olympians' do
-      expect(Olympian.total_competing_olympians).to eq(3)
-    end
-
-    it '.average_weight' do
-      expected_1 = (@olympian_1.weight + @olympian_2.weight) / 2
-      expect(Olympian.average_weight('M')).to eq(expected_1)
-
-      expected_2 = @olympian_3.weight
-      expect(Olympian.average_weight('F')).to eq(expected_2)
-    end
-
-    it '.average_age' do
-      expected = Olympian.pluck(:age).sum.to_f / Olympian.count
-      expect(Olympian.average_age).to eq(expected.round(1))
-    end
-  end
+    stat_data = JSON.parse(response.body)
+    expect(stat_data["olympian_stats"]["total_competing_olympians"]).to eq(3)
+    expect(stat_data["olympian_stats"]["average_weight"]["unit"]).to eq("kg")
+    expect(stat_data["olympian_stats"]["average_weight"]["male_olympians"]).to eq(Olympian.average_weight('M'))
+    expect(stat_data["olympian_stats"]["average_weight"]["female_olympians"]).to eq(Olympian.average_weight('F'))
+    expect(stat_data["olympian_stats"]["average_age"]).to eq(Olympian.average_age)
+	end
 end
+
