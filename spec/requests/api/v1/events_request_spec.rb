@@ -52,6 +52,7 @@ describe "events API" do
       events_data = JSON.parse(response.body)
 
       expect(events_data["events"][0]["sport"]).to eq(@sport_1.name)
+      expect(events_data["events"][1]["events"][0]).to eq(@event_2a.name)
 		end
 end
 
