@@ -111,5 +111,9 @@ RSpec.describe Olympian, type: :model do
     it '.oldest' do
       expect(Olympian.oldest).to eq(@olympian_1)
     end
+
+    it '.total_competing_olympians' do
+      expect(Olympian.total_competing_olympians).to eq(3)
+    end
   end
 end
