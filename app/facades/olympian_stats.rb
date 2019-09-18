@@ -6,11 +6,11 @@ class OlympianStats
     Olympian.total_competing_olympians
   end
 
-  #def average_weight
-  #  Olympian.average_weight
-  #end
+  def average_weight(sex)
+    Olympian.average_weight(sex)
+  end
 
-  #def average_age
-  #  Olympian.average_age
-  #end
+  def average_age
+    Olympian.average_age
+  end
 end
