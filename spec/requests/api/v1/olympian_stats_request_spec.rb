@@ -90,8 +90,8 @@ describe "olympian stats api" do
     stat_data = JSON.parse(response.body)
     expect(stat_data["olympian_stats"]["total_competing_olympians"]).to eq(3)
     expect(stat_data["olympian_stats"]["average_weight"]["unit"]).to eq("kg")
-    expect(stat_data["olympian_stats"]["average_weight"]["male_olympians"]).to eq(Olympian.average_weight(male))
-    expect(stat_data["olympian_stats"]["average_weight"]["female_olympians"]).to eq(Olympian.average_weight(female))
+    expect(stat_data["olympian_stats"]["average_weight"]["male_olympians"]).to eq(Olympian.average_weight('M'))
+    expect(stat_data["olympian_stats"]["average_weight"]["female_olympians"]).to eq(Olympian.average_weight('F'))
     expect(stat_data["olympian_stats"]["average_age"]).to eq(Olympian.average_age)
 	end
 end
