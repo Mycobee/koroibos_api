@@ -5,7 +5,7 @@ describe "olympians api" do
       olympian_1_attrs = {
         name: "Bob Ross",
         sex: "M",
-        age: 22,
+        age: 42,
         height: 190,
         weight: 140,
         team: 'USA'
@@ -16,7 +16,7 @@ describe "olympians api" do
       olympian_2_attrs = {
         name: "Prince",
         sex: "M",
-        age: 42,
+        age: 22,
         height: 160,
         weight: 110,
         team: 'USA'
@@ -54,7 +54,16 @@ describe "olympians api" do
     olympian_data = JSON.parse(response.body)
 
     expect(olympian_data["olympian"]["name"]).to eq(@olympian_3.name)
-	 end
+  end
+
+	it "filters by oldest age param" do
+    get '/api/v1/olympians?age=oldest'
+
+    expect(response).to be_successful
+    olympian_data = JSON.parse(response.body)
+
+    expect(olympian_data["olympian"]["name"]).to eq(@olympian_1.name)
+  end
 
   it "returns 400 for an invalid age param" do
     get '/api/v1/olympians?age=chicken_dinner'
@@ -63,7 +72,7 @@ describe "olympians api" do
   end
 
   it "returns 400 for a param that isn't permitted" do
-    get 'api/v1/olympians?chicken_dinner=might_be_a_winner'
+    get '/api/v1/olympians?chicken_dinner=might_be_a_winner'
 
     expect(response).to have_http_status(400)
   end
