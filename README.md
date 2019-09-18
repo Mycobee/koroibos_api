@@ -35,7 +35,7 @@ $ open coverage/index.html
 RSpec was used to test all endpoints.  Edge cases were also covered, as well as many status codes for different scenarios.    
 
 ### Schema
-![schema](schema.png)
+![schema](koroibos_schema.png)
 
 ### Tech Stack
 * Ruby on Rails
