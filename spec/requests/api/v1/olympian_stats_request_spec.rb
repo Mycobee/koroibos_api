@@ -8,7 +8,7 @@ describe "olympian stats api" do
       sex: "M",
       age: 42,
       height: 190,
-      weight: 140,
+      weight: 150,
       team: 'USA'
     }
     sport = Sport.create!(name: 'competitive painting')
@@ -19,7 +19,7 @@ describe "olympian stats api" do
       sex: "M",
       age: 22,
       height: 160,
-      weight: 110,
+      weight: 50,
       team: 'USA'
     }
     sport_2 = Sport.create!(name: 'competitive dancing')
@@ -30,7 +30,7 @@ describe "olympian stats api" do
       sex: "F",
       age: 12,
       height: 120,
-      weight: 190,
+      weight: 100,
       team: 'Russia'
     }
     
@@ -89,6 +89,10 @@ describe "olympian stats api" do
 
     stat_data = JSON.parse(response.body)
     expect(stat_data["olympian_stats"]["total_competing_olympians"]).to eq(3)
+    expect(stat_data["olympian_stats"]["average_weight"]["unit"]).to eq("kg")
+    expect(stat_data["olympian_stats"]["average_weight"]["male_olympians"]).to eq(Olympian.average_weight(male))
+    expect(stat_data["olympian_stats"]["average_weight"]["female_olympians"]).to eq(Olympian.average_weight(female))
+    expect(stat_data["olympian_stats"]["average_age"]).to eq(Olympian.average_age)
 	end
 end
 
