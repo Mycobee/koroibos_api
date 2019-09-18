@@ -11,4 +11,8 @@ class Olympian < ApplicationRecord
   def self.youngest
     order(age: :asc).first
   end
+
+  def self.oldest
+    order(age: :desc).first
+  end
 end
