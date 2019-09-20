@@ -1,6 +1,6 @@
 class Api::V1::OlympiansController < ApplicationController
 	def index
-    if params.keys == ["controller", "action", "olympian"]
+    if !params.keys.include?("age")
       olympians = Olympian.all
       render json: olympians, each_serializer: OlympianSerializer
     elsif olympian_params[:age] == 'youngest'
