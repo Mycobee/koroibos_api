@@ -24,7 +24,7 @@ $ bundle exec rspec
 $ open coverage/index.html
 ```
 ### Production Links
-###### [Backend API](https://powerful-ridge-89081.herokuapp.com/)
+###### [Backend API](https://powerful-ridge-89081.herokuapp.com/api/v1/olympians)
 
 ### Versions
 
