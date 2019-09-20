@@ -70,11 +70,5 @@ describe "olympians api" do
 
     expect(response).to have_http_status(400)
   end
-
-  it "returns 400 for a param that isn't permitted" do
-    get '/api/v1/olympians?chicken_dinner=might_be_a_winner'
-
-    expect(response).to have_http_status(400)
-  end
 end
 
